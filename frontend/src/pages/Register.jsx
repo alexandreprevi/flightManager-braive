@@ -1,12 +1,17 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { FlexContainer } from "../components/UI/Flex.styled"
 import Form from "../components/Form"
 import Button from "../components/UI/Button.styled"
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from "react-icons/ai"
 import Input from "../components/Form/Input"
+import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { register, reset } from "../features/auth/authSlice"
 
 const Register = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -15,6 +20,9 @@ const Register = () => {
   })
 
   const { username, email, password, passwordConfirmation } = formData
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -23,10 +31,24 @@ const Register = () => {
     }))
   }
   const onSubmit = () => {
+    if (password === "" || email === "" || username === "") {
+      toast.error("All fields are required")
+      return
+    }
+
     if (password !== passwordConfirmation) {
       toast.error("Passwords do not match")
+      return
     }
+
+    dispatch(register({ username, email, password }))
   }
+
+  useEffect(() => {
+    if (isError) toast.error(message)
+    if (isSuccess || user) navigate("/")
+    dispatch(reset())
+  }, [user, isError, isSuccess, message, navigate, dispatch])
 
   return (
     <FlexContainer flexDirection="column" flexGrow={1}>
