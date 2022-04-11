@@ -6,7 +6,7 @@ export const PageWrapper = styled.div`
   max-width: 100%;
   padding: 0 1rem;
   margin: 0 auto;
-  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.tablet}) {
     padding: 0 2rem;
   }
   @media (min-width: ${({ theme }) => theme.breakPoints.laptop}) {
