@@ -4,13 +4,18 @@ import { GiCommercialAirplane } from "react-icons/gi"
 import { FlexContainer } from "../UI/Flex.styled"
 import Text from "../UI/Text.styled"
 import { useNavigate } from "react-router-dom"
-
-const user = "user"
+import { useDispatch, useSelector } from "react-redux"
+import { logout, reset } from "../../features/auth/authSlice"
 
 const Navbar = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { user } = useSelector((state) => state.auth)
 
   const onLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
     navigate("/login")
   }
 
