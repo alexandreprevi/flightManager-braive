@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import GlobalStyles from "./GlobalStyles"
+import theme from "./theme"
 import "./App.css"
 
 // pages
@@ -13,23 +14,29 @@ import Register from "./pages/Register"
 
 // components
 import Navbar from "./components/Navbar"
+import { PageWrapper } from "./components/UI/PageWrapper.styled"
+import { ThemeProvider } from "styled-components"
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <GlobalStyles />
-        <>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/create" element={<CreateFlight />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <GlobalStyles />
+          <>
+            <Navbar />
+            <PageWrapper>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/create" element={<CreateFlight />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </PageWrapper>
+          </>
+        </BrowserRouter>
+      </ThemeProvider>
       <ToastContainer />
     </>
   )
