@@ -91,7 +91,7 @@ const Register = () => {
             />
           </Form.Control>
         </Form.Section>
-        <Button.Secondary size="small" type="submit">
+        <Button.Secondary size="small" type="submit" disabled={isLoading}>
           Register
         </Button.Secondary>
       </Form.Wrapper>
