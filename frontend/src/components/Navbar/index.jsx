@@ -32,20 +32,24 @@ const Navbar = () => {
         {user ? (
           <FlexContainer spacing="medium">
             <Button.Tertiary size="small" onClick={() => navigate("/create")}>
-              <Text.CaptionThin>Create</Text.CaptionThin>
+              <Text.CaptionThin color="mediumFill">Create</Text.CaptionThin>
             </Button.Tertiary>
             <Button.Tertiary size="small" onClick={() => navigate("/")}>
-              <Text.CaptionThin>Flights</Text.CaptionThin>
+              <Text.CaptionThin color="mediumFill">Flights</Text.CaptionThin>
             </Button.Tertiary>
             <Button.Tertiary size="small" onClick={onLogout}>
-              <Text.CaptionThin>Logout</Text.CaptionThin>
+              <Text.CaptionThin color="mediumFill">Logout</Text.CaptionThin>
             </Button.Tertiary>
           </FlexContainer>
         ) : (
           <FlexContainer spacing="medium">
-            <Text.StyledLink to="/login">Login</Text.StyledLink>
+            <Text.StyledLink to="/login" color="mediumFill">
+              Login
+            </Text.StyledLink>
 
-            <Text.StyledLink to="/register">Register</Text.StyledLink>
+            <Text.StyledLink to="/register" color="mediumFill">
+              Register
+            </Text.StyledLink>
           </FlexContainer>
         )}
       </ul>
