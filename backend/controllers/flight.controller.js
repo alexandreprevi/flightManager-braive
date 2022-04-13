@@ -9,8 +9,8 @@ const getAllFlights = expressAsyncHandler(async (req, res) => {
 const createFlight = expressAsyncHandler(async (req, res) => {
   const flight = await Flight.create({
     createdBy: req.user.id,
-    name: req.body.name,
-    number: req.body.number,
+    flightName: req.body.flightName,
+    flightNumber: req.body.flightNumber,
     departureFrom: req.body.departureFrom,
     destination: req.body.destination,
     scheduledDateAndTime: req.body.scheduledDateAndTime,

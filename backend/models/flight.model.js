@@ -9,11 +9,11 @@ module.exports = mongoose.model(
         required: true,
         ref: "User",
       },
-      name: {
+      flightName: {
         type: String,
         required: [true, "Please add a flight name"],
       },
-      number: {
+      flightNumber: {
         type: Number,
         required: [true, "Please add a flight number"],
       },
