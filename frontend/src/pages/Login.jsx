@@ -31,7 +31,7 @@ const Login = () => {
     }))
   }
   const onSubmit = () => {
-    dispatch(login({ username, password }))
+    dispatch(login({ username: username.toLowerCase(), password }))
   }
 
   useEffect(() => {

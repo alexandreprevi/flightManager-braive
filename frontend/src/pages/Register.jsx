@@ -41,7 +41,7 @@ const Register = () => {
       return
     }
 
-    dispatch(register({ username, email, password }))
+    dispatch(register({ username: username.toLowerCase(), email, password }))
   }
 
   useEffect(() => {
