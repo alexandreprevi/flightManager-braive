@@ -3,13 +3,16 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import FlightItem from "../components/FlightItem"
 import Input from "../components/Form/Input"
+import { AiOutlineSearch } from "react-icons/ai"
 import { FlexContainer } from "../components/UI/Flex.styled"
-import Text from "../components/UI/Text.styled"
 import { reset as resetAuth } from "../features/auth/authSlice"
 import {
   getAllFlights,
   reset as resetFlight,
 } from "../features/flight/flightSlice"
+import { formatDate } from "../utils/utils"
+import Button from "../components/UI/Button.styled"
+import Text from "../components/UI/Text.styled"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -31,10 +34,6 @@ const Home = () => {
     }
   }, [user, navigate, dispatch])
 
-  useEffect(() => {
-    if (searchValue) console.log(searchValue)
-  }, [searchValue])
-
   if (isError) return <>Could not load flights. Please try again</>
   if (isLoading) return <>Loading Flights...</>
 
@@ -47,28 +46,52 @@ const Home = () => {
       flexBasis="large"
       flexGrow={1}
     >
-      <Text.Title>Hi {user.username}</Text.Title>
-      <Input
-        placeholder="Search..."
-        onChange={(e) => setSearchValue(e.target.value)}
-      ></Input>
       {flights && flights.length > 0 ? (
-        flights
-          .filter((flight) => {
-            if (
-              flight.flightName.toLowerCase().includes(searchValue) ||
-              flight.scheduledDateAndTime.toLowerCase().includes(searchValue) ||
-              flight.departureFrom.toLowerCase().includes(searchValue) ||
-              flight.destination.toLowerCase().includes(searchValue)
-            ) {
-              return true
-            } else {
-              return false
-            }
-          })
-          .map((flight) => <FlightItem key={flight._id} flight={flight} />)
+        <>
+          <Input
+            placeholder="Search flights..."
+            onChange={(e) => setSearchValue(e.target.value)}
+            icon={<AiOutlineSearch />}
+          ></Input>
+          {flights
+            .filter((flight) => {
+              if (
+                flight.flightName
+                  .toLowerCase()
+                  .includes(searchValue.toLowerCase()) ||
+                formatDate(flight.scheduledDateAndTime)
+                  .toLowerCase()
+                  .includes(searchValue.toLowerCase()) ||
+                flight.departureFrom
+                  .toLowerCase()
+                  .includes(searchValue.toLowerCase()) ||
+                flight.destination
+                  .toLowerCase()
+                  .includes(searchValue.toLowerCase())
+              ) {
+                return true
+              } else {
+                return false
+              }
+            })
+            .map((flight) => (
+              <FlightItem key={flight._id} flight={flight} />
+            ))}
+        </>
       ) : (
-        <>No flights to display</>
+        <FlexContainer
+          flexDirection="column"
+          alignItems="center"
+          spacing="medium"
+          padding={"extraLarge"}
+        >
+          <Text.Body color="darkFill">
+            No flights have been created yet.
+          </Text.Body>
+          <Button.Primary size="large" onClick={() => navigate("/create")}>
+            <Text.Body uppercase>Create</Text.Body>
+          </Button.Primary>
+        </FlexContainer>
       )}
     </FlexContainer>
   )
