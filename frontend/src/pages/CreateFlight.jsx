@@ -13,20 +13,24 @@ const CreateFlight = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     flightName: "",
-    flightNumber: 0,
-    scheduledDateAndTime: "",
-    expectedArrivalDateAndTime: "",
+    flightNumber: "",
+    scheduledDate: "",
+    scheduledTime: "",
+    expectedArrivalDate: "",
+    expectedArrivalTime: "",
     departureFrom: "",
     destination: "",
-    fare: 0,
-    duration: 0,
+    fare: "",
+    duration: "",
   })
 
   const {
     flightName,
     flightNumber,
-    scheduledDateAndTime,
-    expectedArrivalDateAndTime,
+    scheduledDate,
+    scheduledTime,
+    expectedArrivalDate,
+    expectedArrivalTime,
     departureFrom,
     destination,
     fare,
@@ -50,7 +54,30 @@ const CreateFlight = () => {
       return
     }
 
-    dispatch(createFlight(formData))
+    const scheduledDateAndTime = `${scheduledDate}T${scheduledTime}:00`
+    const expectedArrivalDateAndTime = `${expectedArrivalDate}T${expectedArrivalTime}:00`
+
+    if (
+      Date.parse(scheduledDateAndTime) > Date.parse(expectedArrivalDateAndTime)
+    ) {
+      toast.error(
+        "Arrival date & time must be later than departure date & time"
+      )
+      return
+    }
+
+    dispatch(
+      createFlight({
+        flightName: flightName.charAt(0).toUpperCase() + flightName.slice(1),
+        flightNumber,
+        scheduledDateAndTime,
+        expectedArrivalDateAndTime,
+        departureFrom,
+        destination,
+        fare,
+        duration,
+      })
+    )
     navigate("/")
   }
 
@@ -78,22 +105,42 @@ const CreateFlight = () => {
               onChange={onChange}
             />
           </Form.Control>
+
           <Form.Control label="scheduled date & time">
-            <Input
-              type="text"
-              name="scheduledDateAndTime"
-              value={scheduledDateAndTime}
-              onChange={onChange}
-            />
+            <FlexContainer flexDirection="column" spacing="small">
+              <Input
+                type="date"
+                name="scheduledDate"
+                value={scheduledDate}
+                onChange={onChange}
+              />
+              <Input
+                type="time"
+                name="scheduledTime"
+                value={scheduledTime}
+                onChange={onChange}
+                flexBasis="large"
+              />
+            </FlexContainer>
           </Form.Control>
           <Form.Control label="expected arrival date & time">
-            <Input
-              type="text"
-              name="expectedArrivalDateAndTime"
-              value={expectedArrivalDateAndTime}
-              onChange={onChange}
-            />
+            <FlexContainer flexDirection="column" spacing="small">
+              <Input
+                type="date"
+                name="expectedArrivalDate"
+                value={expectedArrivalDate}
+                onChange={onChange}
+              />
+              <Input
+                type="time"
+                name="expectedArrivalTime"
+                value={expectedArrivalTime}
+                onChange={onChange}
+                flexBasis="large"
+              />
+            </FlexContainer>
           </Form.Control>
+
           <Form.Control label="departure from">
             <Input
               type="text"
@@ -118,7 +165,7 @@ const CreateFlight = () => {
               onChange={onChange}
             />
           </Form.Control>
-          <Form.Control label="fare">
+          <Form.Control label="fare in $">
             <Input type="number" name="fare" value={fare} onChange={onChange} />
           </Form.Control>
         </Form.Section>
