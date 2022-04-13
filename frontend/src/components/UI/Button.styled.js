@@ -41,6 +41,7 @@ export const Primary = styled.button`
   ${sharedStyles}
   background-color: ${({ theme }) => theme.colors.lightBg};
   color: ${({ theme }) => theme.colors.darkGrey};
+  border: ${({ theme }) => `1px solid ${theme.colors.darkGrey}`};
   &:hover {
     background-color: ${({ theme }) => theme.colors.darkGrey};
     color: ${({ theme }) => theme.colors.lightBg};
@@ -60,6 +61,7 @@ export const Secondary = styled.button`
 export const Tertiary = styled.button`
   ${sharedStyles}
   background-color: transparent;
+
   color: ${({ theme }) => theme.colors.darkFill};
   &:hover {
     color: ${({ theme }) => theme.colors.darkGrey};

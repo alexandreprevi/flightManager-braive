@@ -6,21 +6,21 @@ export const StyledNavbar = styled.nav`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
-  padding: 0.2rem 1rem;
+  padding: 0.5rem 1rem;
   @media (min-width: ${({ theme }) => theme.breakPoints.tablet}) {
-    padding: 0.5rem 2rem;
+    padding: 0.8rem 2rem;
   }
   @media (min-width: ${({ theme }) => theme.breakPoints.laptop}) {
-    padding: 0.5rem 4rem;
+    padding: 0.8rem 4rem;
   }
   @media (min-width: ${({ theme }) => theme.breakPoints.desktop}) {
-    padding: 0.5rem 6rem;
+    padding: 0.8rem 6rem;
   }
   @media (min-width: ${({ theme }) => theme.breakPoints.largeDesktop}) {
-    padding: 0.5rem 12rem;
+    padding: 0.8rem 12rem;
   }
 `
 
 export const StyledIcon = styled.span`
-  color: ${({ theme }) => theme.colors.darkFill};
+  color: ${({ theme }) => theme.colors.mediumFill};
 `

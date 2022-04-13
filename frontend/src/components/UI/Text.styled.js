@@ -40,7 +40,7 @@ const Label = styled.label`
 const StyledLink = styled(Link)`
   ${sharedStyles}
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.2rem;
 `

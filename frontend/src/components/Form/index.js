@@ -20,7 +20,7 @@ const Wrapper = (props) => {
 const Section = (props) => {
   return (
     <FlexContainer flexDirection="column" spacing="medium">
-      {props.title && <Text.Title color="darkFill">{props.title}</Text.Title>}
+      {props.title && <Text.Title color="mediumFill">{props.title}</Text.Title>}
       {props.children}
     </FlexContainer>
   )
