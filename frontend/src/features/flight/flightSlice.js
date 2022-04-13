@@ -52,7 +52,10 @@ export const flightSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state = initialState
+      state.isLoading = false
+      state.isError = false
+      state.isSuccess = false
+      state.message = ""
     },
   },
   extraReducers: (builder) => {
